@@ -1,0 +1,89 @@
+[build-system]
+requires = ["hatchling==1.31.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "heyrafiki"
+version = "0.1.0b1"
+description = "Typed Python client for the Heyrafiki API."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+authors = [
+  { name = "Heyrafiki", email = "developers@heyrafiki.space" },
+]
+keywords = ["heyrafiki", "healthcare", "insurance", "mental-health"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Typing :: Typed",
+]
+dependencies = [
+  "attrs>=22.2.0",
+  "httpx>=0.27.0,<0.29.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "build==1.5.0",
+  "hatchling==1.31.0",
+  "mypy==2.3.0",
+  "openapi-python-client==0.29.0",
+  "pytest==9.1.1",
+  "pytest-asyncio==1.4.0",
+  "pytest-cov==7.0.0",
+  "PyYAML==6.0.3",
+  "ruff==0.16.2",
+  "twine==7.0.0",
+  "types-PyYAML==6.0.12.20260724",
+]
+
+[project.urls]
+Documentation = "https://docs.heyrafiki.space/sdks"
+Security = "https://github.com/heyrafiki/.github/security/policy"
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/src",
+  "/openapi",
+  "/scripts",
+  "/tests",
+  "/CHANGELOG.md",
+  "/CONTRIBUTING.md",
+  "/GENERATION.md",
+  "/LICENSE",
+  "/README.md",
+  "/RELEASE_NOTES.md",
+  "/SECURITY.md",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/heyrafiki"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["B", "E", "F", "I", "UP"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+files = ["src/heyrafiki", "tests"]
+
+[[tool.mypy.overrides]]
+module = ["heyrafiki.api.*", "heyrafiki.models.*"]
+disable_error_code = ["misc"]
+
+[tool.pytest.ini_options]
+addopts = "--strict-config --strict-markers --cov=heyrafiki.runtime --cov=heyrafiki.retry --cov-report=term-missing --cov-fail-under=95"
+asyncio_mode = "auto"
+testpaths = ["tests"]
