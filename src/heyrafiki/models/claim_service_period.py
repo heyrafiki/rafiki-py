@@ -6,6 +6,8 @@ from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 
+from .._compat import parse_datetime
+
 T = TypeVar("T", bound="ClaimServicePeriod")
 
 
@@ -33,9 +35,9 @@ class ClaimServicePeriod:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        starts_at = datetime.datetime.fromisoformat(d.pop("starts_at"))
+        starts_at = parse_datetime(d.pop("starts_at"))
 
-        ends_at = datetime.datetime.fromisoformat(d.pop("ends_at"))
+        ends_at = parse_datetime(d.pop("ends_at"))
 
         claim_service_period = cls(
             starts_at=starts_at,

@@ -6,6 +6,8 @@ from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 
+from .._compat import parse_datetime
+
 T = TypeVar("T", bound="EligibilityCheckService")
 
 
@@ -35,7 +37,7 @@ class EligibilityCheckService:
         d = dict(src_dict)
         code = d.pop("code")
 
-        scheduled_at = datetime.datetime.fromisoformat(d.pop("scheduled_at"))
+        scheduled_at = parse_datetime(d.pop("scheduled_at"))
 
         eligibility_check_service = cls(
             code=code,

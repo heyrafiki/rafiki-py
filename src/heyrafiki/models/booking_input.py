@@ -6,6 +6,7 @@ from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 
+from .._compat import parse_datetime
 from ..models.booking_input_format import BookingInputFormat, check_booking_input_format
 from ..models.booking_input_payment_source import (
     BookingInputPaymentSource,
@@ -53,9 +54,9 @@ class BookingInput:
         d = dict(src_dict)
         practitioner_id = d.pop("practitioner_id")
 
-        starts_at = datetime.datetime.fromisoformat(d.pop("starts_at"))
+        starts_at = parse_datetime(d.pop("starts_at"))
 
-        ends_at = datetime.datetime.fromisoformat(d.pop("ends_at"))
+        ends_at = parse_datetime(d.pop("ends_at"))
 
         format_ = check_booking_input_format(d.pop("format"))
 

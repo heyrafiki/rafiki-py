@@ -6,6 +6,7 @@ from typing import Any, Literal, TypeVar, cast
 
 from attrs import define as _attrs_define
 
+from .._compat import parse_datetime
 from ..models.session_format import SessionFormat, check_session_format
 from ..models.session_payment_source import SessionPaymentSource, check_session_payment_source
 from ..models.session_status import SessionStatus, check_session_status
@@ -73,9 +74,9 @@ class Session:
 
         practitioner_id = d.pop("practitioner_id")
 
-        starts_at = datetime.datetime.fromisoformat(d.pop("starts_at"))
+        starts_at = parse_datetime(d.pop("starts_at"))
 
-        ends_at = datetime.datetime.fromisoformat(d.pop("ends_at"))
+        ends_at = parse_datetime(d.pop("ends_at"))
 
         timezone = d.pop("timezone")
 

@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Any, Literal, TypeVar, cast
 
 from attrs import define as _attrs_define
 
+from .._compat import parse_datetime
 from ..models.preauthorization_status import PreauthorizationStatus, check_preauthorization_status
 
 if TYPE_CHECKING:
@@ -107,7 +108,7 @@ class Preauthorization:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                valid_until_type_0 = datetime.datetime.fromisoformat(data)
+                valid_until_type_0 = parse_datetime(data)
 
                 return valid_until_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
@@ -116,7 +117,7 @@ class Preauthorization:
 
         valid_until = _parse_valid_until(d.pop("valid_until"))
 
-        created_at = datetime.datetime.fromisoformat(d.pop("created_at"))
+        created_at = parse_datetime(d.pop("created_at"))
 
         def _parse_decision(data: object) -> None | PreauthorizationDecision:
             if data is None:

@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Any, Literal, TypeVar, cast
 
 from attrs import define as _attrs_define
 
+from .._compat import parse_datetime
 from ..models.claim_status import ClaimStatus, check_claim_status
 
 if TYPE_CHECKING:
@@ -166,7 +167,7 @@ class Claim:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                submitted_at_type_0 = datetime.datetime.fromisoformat(data)
+                submitted_at_type_0 = parse_datetime(data)
 
                 return submitted_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
@@ -175,7 +176,7 @@ class Claim:
 
         submitted_at = _parse_submitted_at(d.pop("submitted_at"))
 
-        updated_at = datetime.datetime.fromisoformat(d.pop("updated_at"))
+        updated_at = parse_datetime(d.pop("updated_at"))
 
         claim = cls(
             id=id,

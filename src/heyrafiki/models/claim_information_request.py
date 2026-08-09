@@ -6,6 +6,7 @@ from typing import Any, Literal, TypeVar, cast
 
 from attrs import define as _attrs_define
 
+from .._compat import parse_datetime
 from ..models.claim_information_request_status import (
     ClaimInformationRequestStatus,
     check_claim_information_request_status,
@@ -90,7 +91,7 @@ class ClaimInformationRequest:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                due_at_type_0 = datetime.datetime.fromisoformat(data)
+                due_at_type_0 = parse_datetime(data)
 
                 return due_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
@@ -99,7 +100,7 @@ class ClaimInformationRequest:
 
         due_at = _parse_due_at(d.pop("due_at"))
 
-        created_at = datetime.datetime.fromisoformat(d.pop("created_at"))
+        created_at = parse_datetime(d.pop("created_at"))
 
         def _parse_resolved_at(data: object) -> datetime.datetime | None:
             if data is None:
@@ -107,7 +108,7 @@ class ClaimInformationRequest:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                resolved_at_type_0 = datetime.datetime.fromisoformat(data)
+                resolved_at_type_0 = parse_datetime(data)
 
                 return resolved_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):

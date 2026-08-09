@@ -6,6 +6,7 @@ from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 
+from .._compat import parse_datetime
 from ..models.coverage_batch_record_input_currency import (
     CoverageBatchRecordInputCurrency,
     check_coverage_batch_record_input_currency,
@@ -122,9 +123,9 @@ class CoverageBatchRecordInput:
 
         coordination_priority = _parse_coordination_priority(d.pop("coordination_priority"))
 
-        valid_from = datetime.datetime.fromisoformat(d.pop("valid_from"))
+        valid_from = parse_datetime(d.pop("valid_from"))
 
-        valid_until = datetime.datetime.fromisoformat(d.pop("valid_until"))
+        valid_until = parse_datetime(d.pop("valid_until"))
 
         coverage_batch_record_input = cls(
             coverage_reference=coverage_reference,

@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Any, Literal, TypeVar, cast
 
 from attrs import define as _attrs_define
 
+from .._compat import parse_datetime
 from ..models.claim_adjudication_decision import (
     ClaimAdjudicationDecision,
     check_claim_adjudication_decision,
@@ -102,7 +103,7 @@ class ClaimAdjudication:
 
             lines.append(lines_item)
 
-        decided_at = datetime.datetime.fromisoformat(d.pop("decided_at"))
+        decided_at = parse_datetime(d.pop("decided_at"))
 
         claim_adjudication = cls(
             id=id,

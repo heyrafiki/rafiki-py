@@ -6,6 +6,7 @@ from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 
+from .._compat import parse_datetime
 from ..models.eligibility_check_input_currency import (
     EligibilityCheckInputCurrency,
     check_eligibility_check_input_currency,
@@ -55,7 +56,7 @@ class EligibilityCheckInput:
 
         service_code = d.pop("service_code")
 
-        scheduled_at = datetime.datetime.fromisoformat(d.pop("scheduled_at"))
+        scheduled_at = parse_datetime(d.pop("scheduled_at"))
 
         amount = d.pop("amount")
 

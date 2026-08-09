@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Any, Literal, TypeVar, cast
 
 from attrs import define as _attrs_define
 
+from .._compat import parse_datetime
 from ..models.remittance_status import RemittanceStatus, check_remittance_status
 
 if TYPE_CHECKING:
@@ -93,7 +94,7 @@ class Remittance:
 
             allocations.append(allocations_item)
 
-        received_at = datetime.datetime.fromisoformat(d.pop("received_at"))
+        received_at = parse_datetime(d.pop("received_at"))
 
         def _parse_reconciled_at(data: object) -> datetime.datetime | None:
             if data is None:
@@ -101,7 +102,7 @@ class Remittance:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                reconciled_at_type_0 = datetime.datetime.fromisoformat(data)
+                reconciled_at_type_0 = parse_datetime(data)
 
                 return reconciled_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):

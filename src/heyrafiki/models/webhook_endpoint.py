@@ -6,6 +6,7 @@ from typing import Any, Literal, TypeVar, cast
 
 from attrs import define as _attrs_define
 
+from .._compat import parse_datetime
 from ..models.webhook_endpoint_status import WebhookEndpointStatus, check_webhook_endpoint_status
 
 T = TypeVar("T", bound="WebhookEndpoint")
@@ -71,7 +72,7 @@ class WebhookEndpoint:
 
         status = check_webhook_endpoint_status(d.pop("status"))
 
-        created_at = datetime.datetime.fromisoformat(d.pop("created_at"))
+        created_at = parse_datetime(d.pop("created_at"))
 
         def _parse_disabled_at(data: object) -> datetime.datetime | None:
             if data is None:
@@ -79,7 +80,7 @@ class WebhookEndpoint:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                disabled_at_type_0 = datetime.datetime.fromisoformat(data)
+                disabled_at_type_0 = parse_datetime(data)
 
                 return disabled_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):

@@ -6,6 +6,8 @@ from typing import Any, Literal, TypeVar, cast
 
 from attrs import define as _attrs_define
 
+from .._compat import parse_datetime
+
 T = TypeVar("T", bound="PreauthorizationDecisionInputType0")
 
 
@@ -59,7 +61,7 @@ class PreauthorizationDecisionInputType0:
 
         approved_amount = d.pop("approved_amount")
 
-        valid_until = datetime.datetime.fromisoformat(d.pop("valid_until"))
+        valid_until = parse_datetime(d.pop("valid_until"))
 
         reason_codes = cast(list[str], d.pop("reason_codes"))
 
