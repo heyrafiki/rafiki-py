@@ -5,8 +5,8 @@ The typed models and operation modules are generated from the public Heyrafiki O
 | Input | Value |
 | --- | --- |
 | Contract repository | `heyrafiki/openapi` |
-| Contract commit | `327e0a70de92771d3930380ce552c00e0ed8fc52` |
-| Contract SHA-256 | `e07f8f5bde590f826e1edb91b42ba30686a74ae4e6c0fdf1223efcd0749541ed` |
+| Contract commit | `e629a129462d82534a5e3ed16035da863305d283` |
+| Contract SHA-256 | `d1c7349246e766aaf961e11c591a32de0afcc5900649be462e3656059722b211` |
 | Generator | `openapi-python-client==0.29.0` |
 | Generated operations | 30 |
 

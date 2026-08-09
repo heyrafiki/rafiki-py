@@ -37,10 +37,15 @@ def test_generated_operations_match_the_published_contract() -> None:
     assert len(expected) == 30
     assert actual == expected
     assert "submit_claim_evidence" in actual
+    assert document["info"]["license"] == {
+        "name": "Apache 2.0",
+        "identifier": "Apache-2.0",
+    }
 
 
 def test_generation_provenance_matches_the_snapshot() -> None:
-    digest = hashlib.sha256(CONTRACT.read_bytes()).hexdigest()
+    canonical_contract = CONTRACT.read_text(encoding="utf-8").encode("utf-8")
+    digest = hashlib.sha256(canonical_contract).hexdigest()
 
     assert digest == OPENAPI_SHA256
     assert GENERATOR == "openapi-python-client==0.29.0"

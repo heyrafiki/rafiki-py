@@ -10,11 +10,12 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "openapi" / "openapi.yaml"
-EXPECTED_SOURCE_SHA256 = "e07f8f5bde590f826e1edb91b42ba30686a74ae4e6c0fdf1223efcd0749541ed"
+EXPECTED_SOURCE_SHA256 = "d1c7349246e766aaf961e11c591a32de0afcc5900649be462e3656059722b211"
 
 
 def source_digest() -> str:
-    return hashlib.sha256(SOURCE.read_bytes()).hexdigest()
+    canonical_source = SOURCE.read_text(encoding="utf-8").encode("utf-8")
+    return hashlib.sha256(canonical_source).hexdigest()
 
 
 def prepare(target: Path) -> None:
