@@ -16,15 +16,17 @@ python -m pip install -e ".[dev]"
 The public OpenAPI document owns endpoint names, parameters and models. Update the contract first, then replace `openapi/openapi.yaml`, review the provenance record and regenerate:
 
 ```bash
+python -m pip install -e ".[dev,generation]"
 python scripts/generate.py
 ```
+
+Generation requires Python 3.11 or newer. Runtime development and tests support Python 3.10.
 
 Do not hand-edit files under `src/heyrafiki/api` or `src/heyrafiki/models`.
 
 ## Check a change
 
 ```bash
-python scripts/generate.py
 ruff check .
 ruff format --check .
 mypy

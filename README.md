@@ -94,7 +94,6 @@ The client is generated from the public [OpenAPI 3.1 contract](https://github.co
 
 ```bash
 python -m pip install -e ".[dev]"
-python scripts/generate.py
 ruff check .
 ruff format --check .
 mypy
@@ -102,6 +101,8 @@ pytest
 python -m build
 python -m twine check dist/*
 ```
+
+Contract generation requires Python 3.11 or newer. See [`GENERATION.md`](./GENERATION.md).
 
 ## Resources
 

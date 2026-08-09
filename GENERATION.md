@@ -15,8 +15,10 @@ The typed models and operation modules are generated from the public Heyrafiki O
 Regenerate with:
 
 ```bash
-python -m pip install -e ".[dev]"
+python -m pip install -e ".[dev,generation]"
 python scripts/generate.py
 ```
+
+Generation requires Python 3.11 or newer. The generated client supports Python 3.10.
 
 CI regenerates the package and rejects any diff. Contract updates require a new reviewed snapshot, commit reference, digest and changelog entry.
