@@ -6,6 +6,7 @@ from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 
+from .._compat import parse_datetime
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="ClaimInformationRequestInput")
@@ -58,7 +59,7 @@ class ClaimInformationRequestInput:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                due_at_type_0 = datetime.datetime.fromisoformat(data)
+                due_at_type_0 = parse_datetime(data)
 
                 return due_at_type_0
             except (TypeError, ValueError, AttributeError, KeyError):

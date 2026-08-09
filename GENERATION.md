@@ -10,7 +10,7 @@ The typed models and operation modules are generated from the public Heyrafiki O
 | Generator | `openapi-python-client==0.29.0` |
 | Generated operations | 30 |
 
-`openapi/openapi.yaml` is the unmodified source snapshot. The generator does not currently accept an array reference combined with `minItems` through `allOf`. `scripts/prepare_contract.py` replaces that single composition in `ClaimEvidenceInput.evidence_refs` with its equivalent resolved array schema before generation. The script verifies the source digest and the exact reviewed input before applying the transform.
+`openapi/openapi.yaml` is the unmodified source snapshot. The generator does not currently accept an array reference combined with `minItems` through `allOf`. `scripts/prepare_contract.py` replaces that single composition in `ClaimEvidenceInput.evidence_refs` with its equivalent resolved array schema before generation. The generation step also routes RFC 3339 timestamp parsing through the Python 3.10 compatibility helper. The scripts verify the source digest and reviewed inputs before applying either transform.
 
 Regenerate with:
 

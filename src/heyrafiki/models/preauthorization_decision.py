@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Any, Literal, TypeVar, cast
 
 from attrs import define as _attrs_define
 
+from .._compat import parse_datetime
 from ..models.preauthorization_decision_outcome import (
     PreauthorizationDecisionOutcome,
     check_preauthorization_decision_outcome,
@@ -92,7 +93,7 @@ class PreauthorizationDecision:
 
         evidence_references = cast(list[str], d.pop("evidence_references"))
 
-        decided_at = datetime.datetime.fromisoformat(d.pop("decided_at"))
+        decided_at = parse_datetime(d.pop("decided_at"))
 
         preauthorization_decision = cls(
             id=id,

@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Any, Literal, TypeVar, cast
 
 from attrs import define as _attrs_define
 
+from .._compat import parse_datetime
 from ..models.eligibility_check_reason_codes_item import (
     EligibilityCheckReasonCodesItem,
     check_eligibility_check_reason_codes_item,
@@ -121,7 +122,7 @@ class EligibilityCheck:
             try:
                 if not isinstance(data, str):
                     raise TypeError()
-                coverage_valid_until_type_0 = datetime.datetime.fromisoformat(data)
+                coverage_valid_until_type_0 = parse_datetime(data)
 
                 return coverage_valid_until_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
@@ -130,7 +131,7 @@ class EligibilityCheck:
 
         coverage_valid_until = _parse_coverage_valid_until(d.pop("coverage_valid_until"))
 
-        checked_at = datetime.datetime.fromisoformat(d.pop("checked_at"))
+        checked_at = parse_datetime(d.pop("checked_at"))
 
         eligibility_check = cls(
             id=id,

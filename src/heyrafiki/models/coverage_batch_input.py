@@ -6,6 +6,8 @@ from typing import TYPE_CHECKING, Any, Literal, TypeVar, cast
 
 from attrs import define as _attrs_define
 
+from .._compat import parse_datetime
+
 if TYPE_CHECKING:
     from ..models.coverage_batch_record_input import CoverageBatchRecordInput
 
@@ -70,7 +72,7 @@ class CoverageBatchInput:
 
         source_contract_reference = d.pop("source_contract_reference")
 
-        generated_at = datetime.datetime.fromisoformat(d.pop("generated_at"))
+        generated_at = parse_datetime(d.pop("generated_at"))
 
         records = []
         _records = d.pop("records")

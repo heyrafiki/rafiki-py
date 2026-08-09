@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 
+from .._compat import parse_datetime
 from ..models.remittance_input_currency import (
     RemittanceInputCurrency,
     check_remittance_input_currency,
@@ -59,7 +60,7 @@ class RemittanceInput:
 
         currency = check_remittance_input_currency(d.pop("currency"))
 
-        received_at = datetime.datetime.fromisoformat(d.pop("received_at"))
+        received_at = parse_datetime(d.pop("received_at"))
 
         allocations = []
         _allocations = d.pop("allocations")

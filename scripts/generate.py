@@ -54,11 +54,25 @@ def write_package_init() -> None:
     )
 
 
-def normalize_generated_copy() -> None:
-    """Apply public-copy rules to generated comments without changing behavior."""
-    for path in PACKAGE.rglob("*.py"):
+def normalize_generated_source() -> None:
+    """Apply reviewed compatibility and public-copy transforms."""
+    generated_paths = [
+        path for directory in GENERATED_DIRECTORIES for path in (PACKAGE / directory).rglob("*.py")
+    ]
+    generated_paths.extend(PACKAGE / name for name in GENERATED_FILES)
+    for path in generated_paths:
         source = path.read_text(encoding="utf-8")
         normalized = source.replace("—", "; ").replace("–", "-")
+        if "datetime.datetime.fromisoformat" in normalized:
+            normalized = normalized.replace("datetime.datetime.fromisoformat", "parse_datetime")
+            import_marker = "from attrs import define as _attrs_define\n"
+            if import_marker not in normalized:
+                raise RuntimeError(f"Unable to add datetime compatibility import to {path}.")
+            normalized = normalized.replace(
+                import_marker,
+                f"{import_marker}\nfrom .._compat import parse_datetime\n",
+                1,
+            )
         if normalized != source:
             path.write_text(normalized, encoding="utf-8")
 
@@ -112,7 +126,7 @@ def main() -> None:
     for name in GENERATED_FILES:
         shutil.copy2(GENERATED / name, PACKAGE / name)
     write_package_init()
-    normalize_generated_copy()
+    normalize_generated_source()
 
     (PACKAGE / "py.typed").touch()
     provenance = PACKAGE / "_generation.py"

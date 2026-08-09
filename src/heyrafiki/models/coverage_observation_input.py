@@ -6,6 +6,7 @@ from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 
+from .._compat import parse_datetime
 from ..models.coverage_observation_input_currency import (
     CoverageObservationInputCurrency,
     check_coverage_observation_input_currency,
@@ -138,11 +139,11 @@ class CoverageObservationInput:
 
         coordination_priority = _parse_coordination_priority(d.pop("coordination_priority"))
 
-        valid_from = datetime.datetime.fromisoformat(d.pop("valid_from"))
+        valid_from = parse_datetime(d.pop("valid_from"))
 
-        valid_until = datetime.datetime.fromisoformat(d.pop("valid_until"))
+        valid_until = parse_datetime(d.pop("valid_until"))
 
-        observed_at = datetime.datetime.fromisoformat(d.pop("observed_at"))
+        observed_at = parse_datetime(d.pop("observed_at"))
 
         evidence_references = cast(list[str], d.pop("evidence_references"))
 

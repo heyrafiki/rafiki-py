@@ -6,6 +6,7 @@ from typing import Any, Literal, TypeVar, cast
 
 from attrs import define as _attrs_define
 
+from .._compat import parse_datetime
 from ..models.booking_format import BookingFormat, check_booking_format
 from ..models.booking_payment_source import BookingPaymentSource, check_booking_payment_source
 from ..models.booking_status import BookingStatus, check_booking_status
@@ -79,9 +80,9 @@ class Booking:
 
         practitioner_id = d.pop("practitioner_id")
 
-        starts_at = datetime.datetime.fromisoformat(d.pop("starts_at"))
+        starts_at = parse_datetime(d.pop("starts_at"))
 
-        ends_at = datetime.datetime.fromisoformat(d.pop("ends_at"))
+        ends_at = parse_datetime(d.pop("ends_at"))
 
         timezone = d.pop("timezone")
 
