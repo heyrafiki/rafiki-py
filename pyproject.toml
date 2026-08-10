@@ -49,6 +49,7 @@ generation = [
 [project.urls]
 Documentation = "https://docs.heyrafiki.space/sdks"
 Security = "https://github.com/heyrafiki/.github/security/policy"
+Source = "https://github.com/heyrafiki/rafiki-py"
 
 [tool.hatch.build.targets.sdist]
 include = [

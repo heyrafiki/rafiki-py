@@ -61,7 +61,7 @@ def test_authenticates_and_parses_a_typed_response(
     assert result.data[0].id == "prc_2481"
     assert requests[0].url == "https://sandbox.example/v1/practitioners?limit=5"
     assert requests[0].headers["authorization"] == "Bearer test_api_key"
-    assert requests[0].headers["user-agent"] == "heyrafiki-python/0.1.0b1"
+    assert requests[0].headers["user-agent"] == "rafiki-py/0.1.0b1"
 
 
 def test_raises_the_shared_error_with_request_id() -> None:

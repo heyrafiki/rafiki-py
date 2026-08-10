@@ -159,7 +159,7 @@ def create_client(
     headers = {
         "accept": "application/json",
         "authorization": f"Bearer {api_key}",
-        "user-agent": "heyrafiki-python/0.1.0b1",
+        "user-agent": "rafiki-py/0.1.0b1",
     }
     client = AuthenticatedClient(
         base_url=normalized_base_url,
