@@ -2,15 +2,19 @@
 
 Typed Python client for the Heyrafiki API.
 
-> Source preview. Use with Sandbox projects. This package is not published to PyPI.
-
 ## Install from source
 
 Python 3.10 or newer is required. Keep API keys on the server.
 
 ```bash
+git clone https://github.com/heyrafiki/rafiki-py.git
+cd rafiki-py
 python -m pip install -e .
 ```
+
+The client connects to Sandbox projects with typed sync and async operations,
+caller-owned idempotency keys, bounded retries and the shared API error
+envelope.
 
 ## First request
 
@@ -88,7 +92,7 @@ Every generated operation provides `sync`, `sync_detailed`, `asyncio` and `async
 
 ## Contract
 
-The client is generated from the public [OpenAPI 3.1 contract](https://github.com/heyrafiki/openapi). [`GENERATION.md`](./GENERATION.md) records the contract revision, SHA-256 digest, generator version and the reviewed compatibility transform.
+The client is generated from the public [OpenAPI 3.1 contract](https://github.com/heyrafiki/contract). [`GENERATION.md`](./GENERATION.md) records the contract revision, SHA-256 digest, generator version and the reviewed compatibility transform.
 
 ## Develop
 
@@ -107,7 +111,8 @@ Contract generation requires Python 3.11 or newer. See [`GENERATION.md`](./GENER
 ## Resources
 
 - [Documentation](https://docs.heyrafiki.space)
-- [API contract](https://github.com/heyrafiki/openapi)
+- [API contract](https://github.com/heyrafiki/contract)
+- [Open insurance assurance benchmark](https://github.com/heyrafiki/proving-ground)
 - [SDK roadmap](https://docs.heyrafiki.space/sdks)
 - [Security](https://github.com/heyrafiki/.github/security/policy)
 
