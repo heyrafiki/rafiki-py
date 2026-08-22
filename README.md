@@ -2,6 +2,13 @@
 
 Typed Python client for the Heyrafiki API.
 
+## Where this fits
+
+This SDK is the typed Python entrypoint to Heyrafiki's versioned REST contract.
+It helps applications participate in governed Mental Healthcare workflows while
+authorization, Consent, clinical authority and financial decisions remain
+server-owned.
+
 ## Install from source
 
 Python 3.10 or newer is required. Keep API keys on the server.
