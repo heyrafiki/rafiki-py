@@ -1,0 +1,45 @@
+{
+  "id": "clm_1001:2026-08-28T10:00:00Z",
+  "object": "claim_valuation",
+  "claim_id": "clm_1001",
+  "valuation_at": "2026-08-28T10:00:00Z",
+  "currency": "KES",
+  "status": "approved",
+  "amount": {
+    "billed": 350000,
+    "payer_liability": 300000,
+    "patient_responsibility": 50000,
+    "adjustment": 0,
+    "remitted": 300000,
+    "settled": 300000,
+    "outstanding": 0
+  },
+  "policy": {
+    "reference": "pol_care_v1",
+    "version": "1.0"
+  },
+  "events": [
+    {
+      "sequence": 1,
+      "type": "submitted",
+      "effective_at": "2026-08-28T08:00:00Z",
+      "recorded_at": "2026-08-28T08:00:05Z",
+      "previous_status": "draft",
+      "next_status": "submitted",
+      "reason_code": null,
+      "evidence_references": []
+    },
+    {
+      "sequence": 2,
+      "type": "approved",
+      "effective_at": "2026-08-28T09:30:00Z",
+      "recorded_at": "2026-08-28T09:30:02Z",
+      "previous_status": "submitted",
+      "next_status": "approved",
+      "reason_code": "covered_benefit",
+      "evidence_references": [
+        "doc_eval_001"
+      ]
+    }
+  ]
+}

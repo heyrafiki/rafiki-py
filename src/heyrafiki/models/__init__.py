@@ -29,6 +29,22 @@ from .claim_line import ClaimLine
 from .claim_list import ClaimList
 from .claim_service_period import ClaimServicePeriod
 from .claim_status import ClaimStatus
+from .claim_valuation import ClaimValuation
+from .claim_valuation_amount import ClaimValuationAmount
+from .claim_valuation_event import ClaimValuationEvent
+from .claim_valuation_event_next_status_type_1 import ClaimValuationEventNextStatusType1
+from .claim_valuation_event_next_status_type_2_type_1 import ClaimValuationEventNextStatusType2Type1
+from .claim_valuation_event_next_status_type_3_type_1 import ClaimValuationEventNextStatusType3Type1
+from .claim_valuation_event_previous_status_type_1 import ClaimValuationEventPreviousStatusType1
+from .claim_valuation_event_previous_status_type_2_type_1 import (
+    ClaimValuationEventPreviousStatusType2Type1,
+)
+from .claim_valuation_event_previous_status_type_3_type_1 import (
+    ClaimValuationEventPreviousStatusType3Type1,
+)
+from .claim_valuation_event_type import ClaimValuationEventType
+from .claim_valuation_policy_type_0 import ClaimValuationPolicyType0
+from .claim_valuation_status import ClaimValuationStatus
 from .coverage_batch_input import CoverageBatchInput
 from .coverage_batch_record_input import CoverageBatchRecordInput
 from .coverage_batch_record_input_currency import CoverageBatchRecordInputCurrency
@@ -121,6 +137,18 @@ __all__ = (
     "ClaimList",
     "ClaimServicePeriod",
     "ClaimStatus",
+    "ClaimValuation",
+    "ClaimValuationAmount",
+    "ClaimValuationEvent",
+    "ClaimValuationEventNextStatusType1",
+    "ClaimValuationEventNextStatusType2Type1",
+    "ClaimValuationEventNextStatusType3Type1",
+    "ClaimValuationEventPreviousStatusType1",
+    "ClaimValuationEventPreviousStatusType2Type1",
+    "ClaimValuationEventPreviousStatusType3Type1",
+    "ClaimValuationEventType",
+    "ClaimValuationPolicyType0",
+    "ClaimValuationStatus",
     "CoverageBatchInput",
     "CoverageBatchRecordInput",
     "CoverageBatchRecordInputCurrency",

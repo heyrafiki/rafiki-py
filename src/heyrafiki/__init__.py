@@ -4,7 +4,7 @@ from .client import AuthenticatedClient, Client
 from .retry import RetryPolicy, create_client
 from .runtime import HeyrafikiApiError, unwrap
 
-__version__ = "0.1.0b1"
+__version__ = "0.1.0b2"
 
 __all__ = (
     "AuthenticatedClient",

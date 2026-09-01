@@ -41,7 +41,7 @@ def write_package_init() -> None:
         "from .client import AuthenticatedClient, Client\n"
         "from .retry import RetryPolicy, create_client\n"
         "from .runtime import HeyrafikiApiError, unwrap\n\n"
-        '__version__ = "0.1.0b1"\n\n'
+        '__version__ = "0.1.0b2"\n\n'
         "__all__ = (\n"
         '    "AuthenticatedClient",\n'
         '    "Client",\n'

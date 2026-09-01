@@ -11,8 +11,14 @@ import httpx
 import pytest
 
 from heyrafiki import HeyrafikiApiError, RetryPolicy, create_client, unwrap
-from heyrafiki.api.default import create_booking, create_webhook_endpoint, list_practitioners
+from heyrafiki.api.default import (
+    create_booking,
+    create_webhook_endpoint,
+    get_claim_valuation,
+    list_practitioners,
+)
 from heyrafiki.models import BookingInput, WebhookEndpointInput
+from heyrafiki.models.claim_valuation import ClaimValuation
 from heyrafiki.models.practitioner_list import PractitionerList
 from heyrafiki.retry import AsyncRetryTransport, RetryTransport, _delay, _retry_after
 from heyrafiki.types import Response
@@ -39,6 +45,11 @@ def booking() -> dict[str, object]:
     return cast(dict[str, object], item)
 
 
+@pytest.fixture
+def claim_valuation() -> dict[str, object]:
+    return load_fixture("claim-valuation.json")
+
+
 def test_authenticates_and_parses_a_typed_response(
     practitioner_list: dict[str, object],
 ) -> None:
@@ -61,7 +72,7 @@ def test_authenticates_and_parses_a_typed_response(
     assert result.data[0].id == "prc_2481"
     assert requests[0].url == "https://sandbox.example/v1/practitioners?limit=5"
     assert requests[0].headers["authorization"] == "Bearer test_api_key"
-    assert requests[0].headers["user-agent"] == "rafiki-py/0.1.0b1"
+    assert requests[0].headers["user-agent"] == "rafiki-py/0.1.0b2"
 
 
 def test_raises_the_shared_error_with_request_id() -> None:
@@ -367,3 +378,69 @@ async def test_async_transport_does_not_retry_an_unkeyed_timeout() -> None:
         with pytest.raises(httpx.ReadTimeout):
             await client.post("https://example.com", json={"synthetic": True})
     assert attempts == 1
+
+
+def test_reproduces_claim_valuation_sync(claim_valuation: dict[str, object]) -> None:
+    requests: list[httpx.Request] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        return httpx.Response(200, json=claim_valuation)
+
+    cutoff = dt.datetime(2026, 8, 28, 10, 0, 0, tzinfo=dt.timezone.utc)
+    client = create_client(
+        "test_api_key",
+        base_url="https://sandbox.example/v1/",
+        sync_transport=httpx.MockTransport(handler),
+        retry_policy=RetryPolicy(max_attempts=1),
+    )
+    with client:
+        result = unwrap(
+            get_claim_valuation.sync_detailed(
+                claim_id="clm_1001",
+                client=client,
+                valuation_at=cutoff,
+            )
+        )
+
+    assert isinstance(result, ClaimValuation)
+    assert result.id == "clm_1001:2026-08-28T10:00:00Z"
+    assert result.claim_id == "clm_1001"
+    assert result.amount.billed == 350000
+    assert result.amount.payer_liability == 300000
+    assert len(result.events) == 2
+    assert requests[0].method == "GET"
+    assert requests[0].url.path == "/v1/claims/clm_1001/valuation"
+    assert "valuation_at=2026-08-28T10%3A00%3A00%2B00%3A00" in str(requests[0].url)
+
+
+@pytest.mark.asyncio
+async def test_reproduces_claim_valuation_async(claim_valuation: dict[str, object]) -> None:
+    requests: list[httpx.Request] = []
+
+    async def handler(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        return httpx.Response(200, json=claim_valuation)
+
+    cutoff = dt.datetime(2026, 8, 28, 10, 0, 0, tzinfo=dt.timezone.utc)
+    client = create_client(
+        "test_api_key",
+        base_url="https://sandbox.example/v1/",
+        async_transport=httpx.MockTransport(handler),
+        retry_policy=RetryPolicy(max_attempts=1),
+    )
+    async with client:
+        result = unwrap(
+            await get_claim_valuation.asyncio_detailed(
+                claim_id="clm_1001",
+                client=client,
+                valuation_at=cutoff,
+            )
+        )
+
+    assert isinstance(result, ClaimValuation)
+    assert result.id == "clm_1001:2026-08-28T10:00:00Z"
+    assert result.claim_id == "clm_1001"
+    assert result.amount.billed == 350000
+    assert result.amount.settled == 300000
+    assert requests[0].method == "GET"
