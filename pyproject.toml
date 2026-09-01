@@ -38,7 +38,7 @@ dev = [
   "pytest-asyncio==1.4.0",
   "pytest-cov==7.1.0",
   "PyYAML==6.0.3",
-  "ruff==0.16.2",
+  "ruff==0.16.5",
   "twine==7.0.0",
   "types-PyYAML==6.0.12.20260724",
 ]
