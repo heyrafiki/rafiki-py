@@ -77,6 +77,31 @@ with create_client(os.environ["HEYRAFIKI_API_KEY"]) as client:
 
 Amounts use the currency's minor unit.
 
+## Claim valuation
+
+Reproduce historical claim valuation state and financial amounts at an explicit point in business and knowledge time:
+
+```python
+import datetime as dt
+import os
+
+from heyrafiki import create_client, unwrap
+from heyrafiki.api.default import get_claim_valuation
+
+
+cutoff = dt.datetime(2026, 8, 28, 10, 0, 0, tzinfo=dt.timezone.utc)
+
+with create_client(os.environ["HEYRAFIKI_API_KEY"]) as client:
+    response = get_claim_valuation.sync_detailed(
+        claim_id="clm_1001",
+        client=client,
+        valuation_at=cutoff,
+    )
+    valuation = unwrap(response)
+
+print(valuation.status, valuation.amount.billed, valuation.amount.settled)
+```
+
 ## Errors and retries
 
 `unwrap` raises `HeyrafikiApiError` for documented API errors and retains the request ID.

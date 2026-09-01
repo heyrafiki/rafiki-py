@@ -34,9 +34,10 @@ def test_generated_operations_match_the_published_contract() -> None:
     expected = {snake_case(value) for value in operations(document)}
     actual = {path.stem for path in API_MODULES.glob("*.py") if path.name != "__init__.py"}
 
-    assert len(expected) == 30
+    assert len(expected) == 31
     assert actual == expected
     assert "submit_claim_evidence" in actual
+    assert "get_claim_valuation" in actual
     assert document["info"]["license"] == {
         "name": "Apache 2.0",
         "identifier": "Apache-2.0",
@@ -49,4 +50,4 @@ def test_generation_provenance_matches_the_snapshot() -> None:
 
     assert digest == OPENAPI_SHA256
     assert GENERATOR == "openapi-python-client==0.29.0"
-    assert __version__ == "0.1.0b1"
+    assert __version__ == "0.1.0b2"

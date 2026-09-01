@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "heyrafiki"
-version = "0.1.0b1"
+version = "0.1.0b2"
 description = "Typed Python client for the Heyrafiki API."
 readme = "README.md"
 requires-python = ">=3.10"
